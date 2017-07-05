@@ -11,11 +11,18 @@ TestAction.initialize = (origX, origY) =>
             j = #@bullets + 1
             b = Bullet\new @x, @y, 180, 200
             @bullets[j] = b
-            cron.after_promise 1, b
-        )\next((b)->
-            print(b)
-            b\set_angle 0
-            b\set_speed 0
+            cron.after_promise 1, j
+        )\next((j) ->
+            @bullets[j]\setAngle(270)
+            cron.after_promise 1, j
+        )\next((j) ->
+            @bullets[j]\setAngle(0)
+            cron.after_promise 1, j
+        )\next((j) ->
+            @bullets[j]\setAngle(90)
+            cron.after_promise 1, j
+        )\next((j) ->
+            @bullets[j] = nil
         )
 
 TestAction.update = (dt) =>
